@@ -20,7 +20,10 @@ frames = [ww1, ww2]
 sw = pd.concat(frames)
 
 #espejamos las preguntas A1 y A3 para que correspondan a 0 derecha, 100 izquierda (si funciona mal hacerlo en dos pasos)
+#para el valor respondido, el valor presentado de la repregunta y la respuesta dada en caso de haberla cambiado
 sw.ValorRespondido[(sw.questionId == 19) | (sw.questionId == 23)] = - sw.ValorRespondido[(sw.questionId == 19) | (sw.questionId == 23)] + 100
+sw.ValorPresentadoPregunta[(sw.questionId == 19) | (sw.questionId == 23)] = - sw.ValorPresentadoPregunta[(sw.questionId == 19) | (sw.questionId == 23)] + 100
+sw.ValorRepregunta[((sw.questionId == 19) | (sw.questionId == 23)) & (sw.ValorRepregunta != -1)] = - sw.ValorRepregunta[((sw.questionId == 19) | (sw.questionId == 23)) & (sw.ValorRepregunta != -1)] + 100
 
 #filtramos la matriz usando las columnas Pais, OmitirDatos y EsUsuarioDePrueba, luego tiramos las columnas que no nos sirven
 sw = sw[sw.Pais == 'Sweden']
